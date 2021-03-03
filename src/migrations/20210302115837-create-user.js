@@ -13,18 +13,13 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         foreignKey: true,
       },
-      followers: {
-        type: Sequelize.INTEGER,
-      },
       following: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        allowNull: false,
       },
       nick: {
         type: Sequelize.STRING,
       },
-      // posts: {
-      //   type: Sequelize.INTEGER,
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

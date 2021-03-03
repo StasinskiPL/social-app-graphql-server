@@ -2,17 +2,9 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ User, Follows }) {
-      User.belongsToMany(User, {
-        through: "user_has_followers",
-        foreignKey: "followers",
-        as: "userFollowers",
-      });
-      User.belongsToMany(User, {
-        through: "user_has_following",
-        foreignKey: "following",
-        as: "userFollowing",
-      });
+    static associate({ Follows }) {
+      // this.belongsTo(Follows, { foreignKey: "following" });
+      this.hasMany(Follows, { foreignKey: "userId", as: "followers" });
     }
   }
   User.init(

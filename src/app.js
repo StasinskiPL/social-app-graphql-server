@@ -16,17 +16,16 @@ app.use(
   })
 );
 
-app.listen({ port: 5000 }, async () => {
+app.listen({ port: 7000 }, async () => {
   try {
     await sequelize.authenticate();
     // console.log("listening on  http://localhost:5000");
     const user = await User.findAll({
-      include: ["userFollowers"],
+      include: ["followers"],
     });
-    console.log(user);
-    // const follow = await Follows.findAll();
-
-    // console.log(follow);
+    const follow = await Follows.findAll({ include: "following" });
+    // console.log(user);
+    console.log(follow);
   } catch (error) {
     console.log(error);
   }
