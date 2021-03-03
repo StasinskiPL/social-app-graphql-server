@@ -5,7 +5,7 @@ const {
   GraphQLList,
 } = require("graphql");
 const { resolver } = require("graphql-sequelize");
-const { User, Post } = require("../models");
+const { User, Post, Follows } = require("../models");
 const userType = require("./userType");
 
 const RootQuery = new GraphQLObjectType({
@@ -22,7 +22,18 @@ const RootQuery = new GraphQLObjectType({
     // },
     users: {
       type: GraphQLList(userType),
-      resolve: resolver(User),
+      resolve: resolver(User, {
+        before: (findOptions, args, context) => {
+          findOptions.include = [
+            {
+              model: Follows,
+              as: "followers",
+              include: ["following"],
+            },
+          ];
+          return findOptions;
+        },
+      }),
     },
     // post: {
     //   type: Post,

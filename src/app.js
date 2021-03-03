@@ -20,12 +20,26 @@ app.listen({ port: 7000 }, async () => {
   try {
     await sequelize.authenticate();
     // console.log("listening on  http://localhost:5000");
-    const user = await User.findAll({
-      include: ["followers"],
+    const user = await User.findOne({
+      where: { id: 1 },
+      include: [
+        {
+          model: Follows,
+          as: "followers",
+          // include: [
+          //   {
+          //     model: User,
+          //     as: "following",
+          //   },
+          // ],
+        },
+      ],
     });
-    const follow = await Follows.findAll({ include: "following" });
-    // console.log(user);
-    console.log(follow);
+    // const follow = await Follows.findAll({ include: "following" });
+    // console.log(follow);
+
+    console.log(user);
+    // console.log(user.dataValues.followers);
   } catch (error) {
     console.log(error);
   }

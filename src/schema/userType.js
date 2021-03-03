@@ -12,11 +12,13 @@ const { User } = require("../models");
 const userType = new GraphQLObjectType({
   name: "user",
   fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    uuid: { type: new GraphQLNonNull(GraphQLID) },
-    nick: { type: new GraphQLNonNull(GraphQLString) },
-    followers: { type: new GraphQLList(userType) },
+    id: { type: GraphQLID },
+    uuid: { type: GraphQLID },
+    nick: { type: GraphQLString },
+    followers: { type: new GraphQLList(followerType) },
   }),
 });
 
 module.exports = userType;
+
+const followerType = require("./followerType");

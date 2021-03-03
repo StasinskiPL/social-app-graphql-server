@@ -11,11 +11,6 @@ module.exports = {
       uuid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
-        foreignKey: true,
-      },
-      following: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER),
-        allowNull: false,
       },
       nick: {
         type: Sequelize.STRING,
